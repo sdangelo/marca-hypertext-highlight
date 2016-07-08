@@ -1,0 +1,33 @@
+{
+  "name": "marca-hypertext-highlight",
+  "version": "0.0.0",
+  "description": "Code highlighting for Marca-hypertext based on highlight.js",
+  "main": "marca-hypertext-highlight.js",
+  "scripts": {
+    "test": "node test.js test.marca > /dev/null && node test.js test2.marca > /dev/null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sdangelo/marca-hypertext-highlight.git"
+  },
+  "keywords": [
+    "marca",
+    "hypertext",
+    "markup",
+    "language",
+    "code",
+    "highlight"
+  ],
+  "author": "Stefano D'Angelo <zanga.mail@gmail.com> (http://sdangelo.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sdangelo/marca-hypertext-highlight/issues",
+    "email": "zanga.mail@gmail.com"
+  },
+  "dependencies": {
+    "highlight.js": "^9.4"
+  },
+  "peerDependencies": {
+    "marca-hypertext": "0.0.x"
+  }
+}

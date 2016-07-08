@@ -1,0 +1,5 @@
+{pre:{meta key="highlight": "html"}<html>
+	<script type="text/javascript">
+		{span:{meta key="highlight": "javascript"}c{em:onsole.log("Hello} world!");}
+	</script>
+</html>}
