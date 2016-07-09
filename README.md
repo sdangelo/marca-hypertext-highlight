@@ -8,6 +8,8 @@ I am too lazy to explain hows and whys.
 
 ## TODO
 
+* splitElem() with begin and end;
+* make line splitting optional?
 * overlapping markup is painful... what to do?
 * allow interfacing with other highlighters/parsers;
 * use Marca as highlighters/parsers output rather than HTML?

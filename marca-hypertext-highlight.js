@@ -468,15 +468,57 @@ module.exports = function (Marca, element, classPrefix) {
 		return doHighlight(elemAnalysis, spanAnalysis).element;
 	}
 
-	function findToHighlight(element) {
+	function findToHighlight(element, inner) {
+		var language = element.meta.highlight
+			       ? hljs.getLanguage(element.meta.highlight)
+			       : null;
+
 		for (var i = 0; i < element.children.length; i++)
 			element.children[i] =
-				findToHighlight(element.children[i]);
+				findToHighlight(element.children[i],
+						language || inner);
 
-		var language = element.meta.highlight;
-		return (language && hljs.getLanguage(language))
-		       ? highlight(element, language) : element;
+		if (!language)
+			return element;
+
+		element = highlight(element, element.meta.highlight);
+
+		if (inner)
+			return element;
+
+		var text = getText(Marca, element);
+
+		var i = text.indexOf("\n");
+		if (i == -1)
+			return element;
+
+		var span = Object.create(Marca.DOMElementHypertextSpan);
+		span.meta = {};
+		span.class = (classPrefix ? classPrefix + "-" : "") + "line";
+		span.id = undefined;
+		span.children = element.children;
+
+		elemAnalysis = analyseElem(Marca, span, 0);
+		element.children = [];
+		var res;
+		i--;
+		var j = 0;
+		do {
+			i += j + 1;
+			res = splitElem(Marca, elemAnalysis, i);
+			element.children.push(res[0].element);
+			var s = Object.create(Marca.DOMElementText);
+			s.init("\n");
+			element.children.push(s);
+			elemAnalysis = res[1];
+			res = splitElem(Marca, elemAnalysis, i + 1);
+			elemAnalysis = res[1];
+			j = text.substring(i + 1).indexOf("\n");
+		} while (j != -1);
+		element.children.push(res[1].element);
+
+		return element;
 	}
 
-	return findToHighlight(element);
+	return findToHighlight(element, false);
 };
