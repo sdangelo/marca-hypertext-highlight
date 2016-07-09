@@ -517,6 +517,10 @@ module.exports = function (Marca, element, classPrefix) {
 		} while (j != -1);
 		element.children.push(res[1].element);
 
+		element.class = (element.class ? element.class + " " : "")
+				+ (classPrefix ? classPrefix + "-" : "")
+				+ "multiline";
+
 		return element;
 	}
 
