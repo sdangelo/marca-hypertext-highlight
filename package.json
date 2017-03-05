@@ -1,6 +1,6 @@
 {
   "name": "marca-hypertext-highlight",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Code highlighting for Marca-hypertext based on highlight.js",
   "main": "marca-hypertext-highlight.js",
   "scripts": {
@@ -28,6 +28,6 @@
     "highlight.js": "^9.4"
   },
   "peerDependencies": {
-    "marca-hypertext": "0.0.x"
+    "marca-hypertext": "0.1.x"
   }
 }

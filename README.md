@@ -15,6 +15,7 @@ I am too lazy to explain hows and whys.
 * use Marca as highlighters/parsers output rather than HTML?
 * otherwise implement full list of HTML entities decoding?
 * allow non-span elements in HTML output?
+* browserification;
 * more DRY;
 * API review;
 * documentation;

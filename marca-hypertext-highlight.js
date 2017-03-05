@@ -290,7 +290,7 @@ module.exports = function (Marca, element, classPrefix) {
 						Marca.DOMElementHypertextSpan);
 				span.meta = {};
 				span.id = undefined;
-				span.class = spanAnalysis.classAttr;
+				span.class = [spanAnalysis.classAttr];
 
 				var pre;
 				var post;
@@ -433,7 +433,8 @@ module.exports = function (Marca, element, classPrefix) {
 		span.children = children;
 		span.meta = {};
 		span.id = undefined;
-		span.class = spanAnalysis.classAttr;
+		span.class = spanAnalysis.classAttr ? [spanAnalysis.classAttr]
+						    : undefined;
 
 		elemAnalysis = analyseElem(Marca, span, elemAnalysis.offset);
 
@@ -494,7 +495,7 @@ module.exports = function (Marca, element, classPrefix) {
 
 		var span = Object.create(Marca.DOMElementHypertextSpan);
 		span.meta = {};
-		span.class = (classPrefix ? classPrefix + "-" : "") + "line";
+		span.class = [(classPrefix ? classPrefix + "-" : "") + "line"];
 		span.id = undefined;
 		span.children = element.children;
 
@@ -517,9 +518,10 @@ module.exports = function (Marca, element, classPrefix) {
 		} while (j != -1);
 		element.children.push(res[1].element);
 
-		element.class = (element.class ? element.class + " " : "")
-				+ (classPrefix ? classPrefix + "-" : "")
-				+ "multiline";
+		if (!element.class)
+			element.class = [];
+		element.class.push((classPrefix ? classPrefix + "-" : "")
+				   + "multiline");
 
 		return element;
 	}
