@@ -50,7 +50,7 @@ function parseHTML(html, dom, classPrefix) {
 		html = html.substring(span[0].length);
 		var elem = { classAttr: classAttr, children: [] };
 		dom.push(elem);
-		html = parseHTML(html, elem.children);
+		html = parseHTML(html, elem.children, classPrefix);
 	}
 }
 
@@ -232,7 +232,12 @@ function splitSpanNoHighlight(elemAnalysis, spanAnalysis) {
 }
 
 
-module.exports = function (Marca, element, classPrefix) {
+module.exports = function (Marca, element, classPrefix, extraLanguages) {
+	var hljsL = Object.create(hljs);
+	if (extraLanguages)
+		for (var l in extraLanguages)
+			hljsL.registerLanguage(l, extraLanguages[l]);
+
 	function mapElems(array) {
 		return array.map(function (obj) { return obj.element });
 	}
@@ -456,7 +461,7 @@ module.exports = function (Marca, element, classPrefix) {
 
 	function highlight(element, language) {
 		var text = getText(Marca, element);
-		var html = hljs.highlight(language, text, false).value;
+		var html = hljsL.highlight(language, text, false).value;
 		
 		var htmlDom = [];
 		parseHTML(html, htmlDom, classPrefix);
@@ -471,7 +476,7 @@ module.exports = function (Marca, element, classPrefix) {
 
 	function findToHighlight(element, inner) {
 		var language = element.meta.highlight
-			       ? hljs.getLanguage(element.meta.highlight)
+			       ? hljsL.getLanguage(element.meta.highlight)
 			       : null;
 
 		for (var i = 0; i < element.children.length; i++)
