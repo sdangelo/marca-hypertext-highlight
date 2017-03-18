@@ -42,6 +42,8 @@ function parseHTML(html, dom, classPrefix) {
 			if (html.charAt(1) == "/")
 				return html.substring(7);
 		}
+		else if (html.charAt(1) == "/")
+			return;
 
 		var spanRe = /<span class="([^"]+)">/;
 		var span = spanRe.exec(html);
@@ -391,7 +393,11 @@ module.exports = function (Marca, element, classPrefix, extraLanguages) {
 				+ spanAnalysis.length));
 			var x = analyseElem(Marca, elem, spanAnalysis.offset);
 			var internal = doHighlightText(x, spanAnalysis);
-			var ret = pre ? [preAnalysis, internal] : [internal];
+			var ret;
+			if (Array.isArray(internal))
+				ret = pre ? [preAnalysis].concat(internal) : internal;
+			else
+				ret = pre ? [preAnalysis, internal] : [internal];
 			return post ? ret.concat(postAnalysis) : ret;
 		}
 
